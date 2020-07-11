@@ -8,9 +8,12 @@ class AnnotationParser {
     private $phpDoc;
     private $annotations;
 
-    public function __construct($clazz){
+    public function __construct($clazz, $useString = false){
         $this->annotations = [];
-        $this->phpDoc = (new ReflectionClass($clazz))->getDocComment();
+        if ($useString)
+            $this->phpDoc = $clazz;
+        else
+            $this->phpDoc = (new ReflectionClass($clazz))->getDocComment();
         $this->parse();
     }
 
